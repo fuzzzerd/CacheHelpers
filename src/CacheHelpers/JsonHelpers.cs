@@ -75,7 +75,7 @@ namespace CacheHelpers
         public static async Task<T> GetOrCreateAsync<T>(this IDistributedCache cache, string key, Func<T> factory)
         {
             var cached = await cache.GetAsync<T>(key);
-            if (cache == null)
+            if (cached == null)
             {
                 cached = factory();
                 await cache.SetAsync(key, cached);
@@ -94,7 +94,7 @@ namespace CacheHelpers
         public static async Task<T> GetOrCreateAsync<T>(this IDistributedCache cache, string key, Func<Task<T>> factory)
         {
             var cached = await cache.GetAsync<T>(key);
-            if(cache == null)
+            if(cached == null)
             {
                 cached = await factory();
                 await cache.SetAsync(key, cached);
